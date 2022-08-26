@@ -11,7 +11,7 @@ class Solution {
         }
         
         //initial loop looking at the first case, from index 0, to the length of the s1. 
-		//From then on, we'll look through a fixed window the length of s1.
+	//From then on, we'll look through a fixed window the length of s1.
         for(int i = 0; i < size; i++) {
             arr[s2.charAt(i) - 'a']--;
         }
