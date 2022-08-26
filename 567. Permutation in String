@@ -1,0 +1,42 @@
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        if (s1.length() > s2.length()) return false;
+        int size = s1.length();
+        int[] arr = new int[26];
+        
+        
+        //incriment to letters to s1, so we know the frequencies of each letter
+        for(int i = 0; i < s1.length(); i++) {
+            arr[s1.charAt(i) - 'a']++;
+        }
+        
+        //initial loop looking at the first case, from index 0, to the length of the s1. 
+		//From then on, we'll look through a fixed window the length of s1.
+        for(int i = 0; i < size; i++) {
+            arr[s2.charAt(i) - 'a']--;
+        }
+        
+        boolean istrue = true;
+        for(int i = size; i < s2.length(); i++) {
+            //our check. If all the values of arr are 0, then all of the letters have appeared
+            for(int j = 0; j < 26; j++) {
+                if(arr[j] != 0) {
+                    istrue = false;
+                    break;
+                }
+            }
+            if(istrue) return true;
+            istrue = true;
+            
+            //incriment the tail we're leaving, and decriment the head which we added
+            arr[s2.charAt(i - size) - 'a']++;
+            arr[s2.charAt(i) - 'a']--;
+        }
+        
+        //one final check for the last loop
+        for(int i = 0; i < arr.length; i++) {
+            if(arr[i] != 0) return false;
+        }
+        return true;
+    }
+}
