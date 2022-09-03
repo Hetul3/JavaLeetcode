@@ -1,0 +1,29 @@
+Here we are asked to count the total number of negative numbers in a vertically and horizontally sorted matrix. 
+We can just loop through the whole matrix and keep count of the negative numbers, but we can also use the information 
+that all of the positives and negatives will be connected to one another. if there are positives and negatives, all 
+of the positives will be in the top left and all of the negatives will be in the bottom right. So we can perform breadth first search 
+to find all the positives or negatives and return that. 
+
+In my case, I found all the positives and you don't have to recursively call in all four directions, just right and down. 
+
+
+
+<---------------------------------------------->
+
+class Solution {
+    int count = 0;
+    public int countNegatives(int[][] grid) {
+        if(grid[0][0] >= 0) {
+            bfs(0, 0, grid);
+            return (grid[0].length*grid.length) - count;
+        }
+        else return grid[0].length*grid.length;
+    }
+    public void bfs(int i, int j, int[][] grid) {
+        if(i >= grid.length || j >= grid[0].length || grid[i][j] < 0) return;
+        count++;
+        grid[i][j] = -1;
+        bfs(i+1, j, grid);
+        bfs(i, j+1, grid);
+    }
+}
